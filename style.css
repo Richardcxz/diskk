@@ -1,0 +1,73 @@
+body{
+    background-color: #1B24FD;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.button {
+    cursor: pointer;
+    display: inline;
+}
+
+/* Estilize o input file para esconder o botão de seleção padrão */
+input[type="file"] {
+    display: none;
+}
+
+/* Estilize a aparência do contêiner do input file */
+.file-input-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilize o texto que substituirá o botão padrão */
+.file-input-label {
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+}
+
+.circle {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 10px solid rgb(245, 238, 238);
+    background-color: white;
+    cursor: grab;
+}
+
+.circle.dragging {
+    cursor: grabbing;
+}
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      border-width: 10px;
+    }
+    50% {
+      border-width: 20px;
+    }
+    100% {
+      border-width: 10px;
+    }
+  }
+  

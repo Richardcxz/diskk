@@ -19,6 +19,13 @@ body{
     display: inline;
 }
 
+.time-container {
+  position: absolute;
+  left: -10%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 /* Estilize o input file para esconder o botão de seleção padrão */
 input[type="file"] {
     display: none;

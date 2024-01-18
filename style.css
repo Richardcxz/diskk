@@ -69,18 +69,6 @@ input[type="file"] {
     background-color: white;
     cursor: grab;
   }
-.time-container {
-  position: absolute;
-  top: 5%;
-  transform: translate(-50%, -50%);
-}
-.belowtxt {
-    bottom: -15%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
 }
   
   @keyframes rotate {

@@ -75,10 +75,11 @@ input[type="file"] {
   transform: translate(-50%, -50%);
 }
 .belowtxt {
-  position: absolute;
-  bottom: -15%;
-  left: 15%;
-  transform: translate(-50%, -50%);
+    bottom: -15%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 }
   

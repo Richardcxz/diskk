@@ -31,6 +31,7 @@
     let selectedFile;
     let lastPlaybackPosition = 0;
     let isDragging = false;
+    let initialMouseX = 0;
 
     document.querySelector('.circle').addEventListener('mousedown', startDragging);
     document.addEventListener('mousemove', handleDragging);
@@ -38,6 +39,7 @@
     
     function startDragging(e) {
         isDragging = true;
+        initialMouseX = e.clientX;
         document.querySelector('.circle').classList.add('dragging');
     }
     
@@ -60,7 +62,6 @@
         document.querySelector('.circle').classList.remove('dragging');
     }
     
-    let initialMouseX = 0;
     let circleWidth = 400;
 
     function playsong() {

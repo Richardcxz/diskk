@@ -10,7 +10,10 @@
 <body>
 
     <div class="circle">
-
+        <div class="time-container" hidden>
+            <p id="currentTime">00:00</p>
+            <p id="totalTime">00:00</p>
+        </div>
     </div>
 
     <div class="belowtxt">
@@ -22,65 +25,82 @@
             <label for="fileInput" class="file-input-label">choose mp3 file</label>
             <input type="file" accept="audio/mp3" id="fileInput" onchange="selecionarArq(event)">
         </div>
+
         <br><br>
         <p>drag the disk to control</p>
     </div>
-</body>
+
 <script>
     let audio;
     let selectedFile;
     let lastPlaybackPosition = 0;
     let isDragging = false;
     let initialMouseX = 0;
+    let currentTimeElement = document.getElementById('currentTime');
+    let totalTimeElement = document.getElementById('totalTime');
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        return formattedTime;
+    }
+
+    function updateTimerDisplay() {
+        if (audio) {
+            currentTimeElement.textContent = formatTime(audio.currentTime);
+            totalTimeElement.textContent = formatTime(audio.duration);
+        }
+    }
 
     document.querySelector('.circle').addEventListener('mousedown', startDragging);
     document.addEventListener('mousemove', handleDragging);
     document.addEventListener('mouseup', stopDragging);
-    
+
     function startDragging(e) {
         isDragging = true;
         initialMouseX = e.clientX;
         document.querySelector('.circle').classList.add('dragging');
     }
-    
+
     function handleDragging(e) {
         if (isDragging) {
             const deltaX = e.clientX - initialMouseX;
-    
+
             const percentage = (deltaX / circleWidth) * 100;
-    
+
             const timeChange = (percentage / 100) * audio.duration;
-    
+
             audio.currentTime += timeChange;
-    
+
             initialMouseX = e.clientX;
         }
     }
-    
+
     function stopDragging() {
         isDragging = false;
         document.querySelector('.circle').classList.remove('dragging');
     }
-    
+
     let circleWidth = 400;
 
     function playsong() {
         if (selectedFile) {
-            if (!audio) {
-                audio = new Audio();
-                audio.addEventListener('timeupdate', updatePlaybackPosition);
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
             }
 
-            if (lastPlaybackPosition > 0) {
-                audio.currentTime = lastPlaybackPosition;
-            } else {
-                let objectURL = URL.createObjectURL(selectedFile);
-                audio.src = objectURL;
-            }
+            audio = new Audio();
+            audio.addEventListener('timeupdate', updatePlaybackPosition);
+
+            let objectURL = URL.createObjectURL(selectedFile);
+            audio.src = objectURL;
 
             audio.play();
+            document.querySelector('.time-container').hidden = false;
             var circle = document.querySelector('.circle');
-            circle.style.animation = 'rotate 2s linear infinite, pulse 2s ease-in-out infinite';
+            circle.style.animation = 'pulse 2s ease-in-out infinite';
         } else {
             alert("Please select an MP3 file first.");
         }
@@ -98,13 +118,22 @@
     function updatePlaybackPosition() {
         if (audio) {
             lastPlaybackPosition = audio.currentTime;
+            updateTimerDisplay();
         }
     }
 
     function selecionarArq(event) {
         const fileInput = event.target;
         selectedFile = fileInput.files[0];
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+            audio = null;
+        }
     }
+
+    audio.addEventListener('timeupdate', updateTimerDisplay);
 </script>
 
+</body>
 </html>

@@ -83,20 +83,23 @@
     }
 
     let circleWidth = 400;
+    let played;
 
     function playsong() {
         if (selectedFile) {
             if (audio) {
                 audio.pause();
-                audio.currentTime = 0;
             }
-
-            audio = new Audio();
-            audio.addEventListener('timeupdate', updatePlaybackPosition);
-
-            let objectURL = URL.createObjectURL(selectedFile);
-            audio.src = objectURL;
-
+    
+            if (!audio || audio.src !== selectedFile) {
+                audio = new Audio();
+    
+                audio.currentTime = lastPlaybackPosition;
+    
+                audio.addEventListener('timeupdate', updatePlaybackPosition);
+                audio.src = URL.createObjectURL(selectedFile);
+            }
+    
             audio.play();
             document.querySelector('.time-container').hidden = false;
             var circle = document.querySelector('.circle');
@@ -105,6 +108,7 @@
             alert("Please select an MP3 file first.");
         }
     }
+    
 
     function pausesong() {
         if (audio) {
@@ -127,7 +131,7 @@
         selectedFile = fileInput.files[0];
         if (audio) {
             audio.pause();
-            audio.currentTime = 0;
+            lastPlaybackPosition = audio.currentTime = 0;
             audio = null;
         }
     }

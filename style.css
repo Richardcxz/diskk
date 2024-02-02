@@ -37,7 +37,7 @@ input[type="file"] {
 
 .file-input-label {
     cursor: pointer;
-    color: white;
+    color: rgb(190, 191, 196);
     display: inline-block;
 }
 

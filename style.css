@@ -1,6 +1,6 @@
 body{
-    background-color: #1B24FD;
-    color: white;
+    background-color: #0F0F0F;
+    color: rgb(255, 255, 255);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -26,18 +26,15 @@ body{
   transform: translate(-50%, -50%);
 }
 
-/* Estilize o input file para esconder o botão de seleção padrão */
 input[type="file"] {
     display: none;
 }
 
-/* Estilize a aparência do contêiner do input file */
 .file-input-container {
     position: relative;
     display: inline-block;
 }
 
-/* Estilize o texto que substituirá o botão padrão */
 .file-input-label {
     cursor: pointer;
     color: white;
@@ -48,8 +45,8 @@ input[type="file"] {
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    border: 10px solid rgb(245, 238, 238);
-    background-color: white;
+    border: 10px solid #1d24df;
+    background-color: #0d15e7;
     cursor: grab;
 }
 
